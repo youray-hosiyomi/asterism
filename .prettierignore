@@ -1,0 +1,9 @@
+*.md
+dist
+node_modules
+yarn.lock
+public
+
+# prettier コマンド
+# prettier --write --ignore-path .gitignore './src/**/*.{js,jsx,ts,tsx,json}'
+# --ignore-path で.gitignore を指定することで、.gitignore で指定したファイル・フォルダも対象となる

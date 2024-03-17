@@ -18,8 +18,17 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* path */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@supabase/*": ["./supabase/*"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "supabase"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { FC } from "react";
+import Router from "./Router";
+import AuthProvider from "./app/providers/auth.provider";
+import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { PostgrestError } from "@supabase/supabase-js";
+import { logout } from "./common/api/auth.api";
+import { ToastContainer } from "react-toastify";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: FC = () => {
+  const queryClient = new QueryClient({
+    queryCache: new QueryCache({
+      onError: (error) => {
+        if (error) {
+          const err = error as unknown as PostgrestError;
+          if (err.code && err.code == "401") {
+            // 認証できていない時のエラー処理はなしで問題ない
+            logout();
+          }
+        }
+      },
+    }),
+    defaultOptions: {
+      queries: {
+        retry: false,
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+      },
+    },
+  });
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </QueryClientProvider>
+      <ToastContainer
+        style={{
+          zIndex: 10000,
+        }}
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={true}
+      />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
