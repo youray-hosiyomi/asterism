@@ -1,1 +1,1 @@
-# ASTERISM ☄
+# ASTERISM 🌠
