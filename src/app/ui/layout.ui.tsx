@@ -1,6 +1,6 @@
 import { cn } from "@/common/utils/classname.util";
 import { AlignJustify, XIcon } from "lucide-react";
-import { CSSProperties, FC, ReactNode } from "react";
+import { CSSProperties, FC, ReactNode, RefObject, useImperativeHandle, useRef } from "react";
 
 export type UILayoutSideMenuProps = {
   content: ReactNode;
@@ -15,13 +15,28 @@ export type UILayoutHeaderProps = {
   rightItems?: ReactNode;
 };
 
+export type UILayoutHandler = {
+  drawerCheckRef: RefObject<HTMLInputElement>;
+};
+
 export interface UILayoutProps {
   sideMenu?: UILayoutSideMenuProps;
   header?: UILayoutHeaderProps;
   children: ReactNode;
+  handlerRef?: RefObject<UILayoutHandler>;
 }
 
-const UILayout: FC<UILayoutProps> = ({ children, sideMenu, header }) => {
+const UILayout: FC<UILayoutProps> = ({ children, sideMenu, header, handlerRef }) => {
+  const drawerCheckRef: RefObject<HTMLInputElement> = useRef(null);
+  useImperativeHandle(
+    handlerRef,
+    () => {
+      return {
+        drawerCheckRef,
+      };
+    },
+    [drawerCheckRef],
+  );
   const content = (
     <>
       {header && (
@@ -53,9 +68,9 @@ const UILayout: FC<UILayoutProps> = ({ children, sideMenu, header }) => {
 
   return (
     <div className="bg-base-100 drawer lg:drawer-open">
-      <input id="drawer" type="checkbox" className="drawer-toggle" />
+      <input id="drawer" type="checkbox" className="drawer-toggle" ref={drawerCheckRef} />
       <div className="drawer-content">{content}</div>
-      <div className="drawer-side z-40 shadow-lg border-r border-gray-200" style={{ scrollBehavior: "smooth" }}>
+      <div className="drawer-side z-40 shadow-lg border-r border-gray-200">
         <label htmlFor="drawer" className="drawer-overlay" aria-label="Close menu"></label>
         <aside className={cn("bg-base-100 min-h-screen", sideMenu.className)} style={sideMenu.style}>
           {sideMenu.header && (

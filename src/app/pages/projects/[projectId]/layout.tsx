@@ -1,15 +1,15 @@
-import UILayout, { UILayoutHandler } from "../../ui/layout.ui";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { AuthPageFC } from "@/common/type/page.type";
 import AuthUserButton from "@/app/components/auth/auth-user-button.component";
 import { useMemo, useRef } from "react";
-import { wsPageLinkMaps } from "@/common/config/page-link.config";
+import { projectPagePageLinkMaps } from "@/common/config/page-link.config";
 import { cn } from "@/common/utils/classname.util";
+import UILayout, { UILayoutHandler } from "@/app/ui/layout.ui";
 import AppTitle from "@/app/components/app-title.component";
 
-const linkMaps = wsPageLinkMaps;
+const linkMaps = projectPagePageLinkMaps;
 
-const WS_Layout: AuthPageFC = ({ auth }) => {
+const Project_Layout: AuthPageFC = ({ auth }) => {
   const handlerRef = useRef<UILayoutHandler>(null);
   const location = useLocation();
   const layoutSideMenuClass: string = useMemo(() => {
@@ -71,4 +71,4 @@ const WS_Layout: AuthPageFC = ({ auth }) => {
   );
 };
 
-export default WS_Layout;
+export default Project_Layout;

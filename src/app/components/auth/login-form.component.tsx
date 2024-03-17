@@ -1,5 +1,6 @@
 import { useLogin } from "@/app/hooks/auth.hook";
 import { FC, FormEvent, useState } from "react";
+import AppTitle from "../app-title.component";
 
 interface LoginFormProps {}
 
@@ -16,7 +17,7 @@ const LoginForm: FC<LoginFormProps> = () => {
     <>
       <div className="flex flex-1 flex-col justify-center px-4 pb-48 pt-6 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
         <div className="mx-auto w-full max-w-sm lg:w-96">
-          <h2 className="select-none text-3xl font-semibold">{import.meta.env.VITE_APP_TITLE ?? "ASTERISM"}</h2>
+          <AppTitle className="select-none text-3xl font-semibold" />
           <div className="mt-7">
             <div>
               <form className="space-y-6" onSubmit={handleLogin}>

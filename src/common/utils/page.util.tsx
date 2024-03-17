@@ -8,9 +8,16 @@ export function makePageLinkMaps<Props extends object>(config: PageLinkConfig<Pr
     keys.forEach((key) => {
       const link: PageLink<Props> = config[key];
       if (link && parentPath == link.parentPath) {
+        const childPathes: string[] = [];
+        const childMaps = makeMaps(link.path);
+        childMaps.forEach((m) => {
+          childPathes.push(m.path);
+          childPathes.push(...m.childPathes);
+        });
         maps.push({
           ...link,
-          children: makeMaps(link.path),
+          childPathes,
+          children: childMaps,
         });
       }
     });
@@ -19,13 +26,27 @@ export function makePageLinkMaps<Props extends object>(config: PageLinkConfig<Pr
   return makeMaps();
 }
 
-export function makeRoutes<Props extends object>(props: Props, maps: PageLinkMap<Props>[]): RouteObject[] {
-  return maps.map((map) => {
-    const children = maps.length == 0 ? [] : makeRoutes(props, map.children);
-    return {
-      path: map.path,
-      element: <map.page {...props} />,
-      children,
-    };
-  });
+export function makeRoutes<Props extends object>(
+  props: Props,
+  maps: PageLinkMap<Props>[],
+  parentMap?: PageLinkMap<Props>,
+): RouteObject[] {
+  const routes: RouteObject[] = [];
+  if (parentMap) {
+    routes.push({
+      index: true,
+      element: <parentMap.page {...props} />,
+    });
+  }
+  routes.push(
+    ...maps.map((map) => {
+      const children = maps.length == 0 ? [] : makeRoutes(props, map.children, map);
+      return {
+        path: map.path,
+        element: map.layout ? <map.layout {...props} /> : undefined,
+        children,
+      };
+    }),
+  );
+  return routes;
 }

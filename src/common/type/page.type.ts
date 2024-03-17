@@ -9,13 +9,12 @@ export type AuthPageProps = {
 
 export type GuestPageFC = FC;
 export type AuthPageFC = FC<AuthPageProps>;
-export type GuestLayoutFC = FC;
-export type AuthLayoutFC = FC<AuthPageProps>;
 
 export type PageLink<Props extends object, Path extends string = string> = {
   path: Path;
   name: string;
   page: FC<Props>;
+  layout?: FC<Props>;
   icon?: LucideIcon;
   parentPath?: Path;
 };
@@ -25,5 +24,6 @@ export type PageLinkConfig<Props extends object, Path extends string = string> =
 };
 
 export type PageLinkMap<Props extends object> = PageLink<Props> & {
+  childPathes: string[];
   children: PageLinkMap<Props>[];
 };
