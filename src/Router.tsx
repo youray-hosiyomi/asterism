@@ -9,11 +9,11 @@ import {
   repositoryPageLinkMaps,
   wsPageLinkConfig,
   wsPageLinkMaps,
-} from "./common/config/page-link.config";
+} from "./app/config/page-link.config";
 import WS_Layout from "./app/pages/ws/layout";
 import { useAuthContext } from "./app/hooks/auth.hook";
 import { makeRoutes } from "./common/utils/page.util";
-import { UILoading } from "./app/ui/loading.ui";
+import { UILoading } from "./common/ui/loading.ui";
 import Repository_Layout from "./app/pages/repositories/[repositoryId]/layout";
 import Project_Layout from "./app/pages/projects/[projectId]/layout";
 
@@ -53,7 +53,7 @@ const Router: FC = () => {
   }, [auth]);
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center w-full h-52">
+      <div className="flex justify-center items-center w-full h-52 animate-fadein-up">
         <UILoading />
       </div>
     );

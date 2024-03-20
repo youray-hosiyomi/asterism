@@ -1,5 +1,5 @@
-import UIPage from "@/app/ui/page.ui";
-import { wsPageLinkConfig } from "@/common/config/page-link.config";
+import UIPage from "@/common/ui/page.ui";
+import { wsPageLinkConfig } from "@/app/config/page-link.config";
 import { AuthPageFC } from "@/common/type/page.type";
 
 const WS_Repositories_Page: AuthPageFC = () => {

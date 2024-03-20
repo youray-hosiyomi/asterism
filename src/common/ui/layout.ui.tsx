@@ -38,9 +38,9 @@ const UILayout: FC<UILayoutProps> = ({ children, sideMenu, header, handlerRef })
     [drawerCheckRef],
   );
   const content = (
-    <>
+    <div className="flex flex-col h-dvh">
       {header && (
-        <header className="bg-base-100 text-base-content sticky top-0 z-30 flex h-16 w-full justify-center shadow-md border-b border-gray-200 duration-100">
+        <header className="bg-base-100 text-base-content flex-none flex h-16 w-full justify-center shadow-md border-b border-gray-200 duration-100">
           <nav className="navbar w-full">
             <div className="flex flex-1 md:gap-1 lg:gap-2">
               {!!sideMenu && (
@@ -59,15 +59,15 @@ const UILayout: FC<UILayoutProps> = ({ children, sideMenu, header, handlerRef })
           </nav>
         </header>
       )}
-      <main className="">{children}</main>
-      <footer></footer>
-    </>
+      <main className="flex-auto isolate overflow-auto">{children}</main>
+      <footer className="flex-none"></footer>
+    </div>
   );
 
-  if (!sideMenu) return <div className="bg-base-100">{content}</div>;
+  if (!sideMenu) return <div className="bg-base-100 animate-fadein">{content}</div>;
 
   return (
-    <div className="bg-base-100 drawer lg:drawer-open">
+    <div className="bg-base-100 drawer lg:drawer-open animate-fadein">
       <input id="drawer" type="checkbox" className="drawer-toggle" ref={drawerCheckRef} />
       <div className="drawer-content">{content}</div>
       <div className="drawer-side z-40 shadow-lg border-r border-gray-200">

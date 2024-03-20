@@ -1,5 +1,5 @@
 import { useLogout } from "@/app/hooks/auth.hook";
-import { Auth } from "@/common/api/auth.api";
+import { Auth } from "@/app/api/auth.api";
 import { FC } from "react";
 
 interface AuthUserButtonProps {

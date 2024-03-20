@@ -1,5 +1,5 @@
 import { Session, SignInWithPasswordCredentials, User } from "@supabase/supabase-js";
-import { supabase } from "../utils/supabase.util";
+import { supabase } from "../../common/utils/supabase.util";
 
 export type LoginReq = SignInWithPasswordCredentials;
 export const login = async (req: LoginReq) => {

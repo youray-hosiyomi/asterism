@@ -24,7 +24,7 @@ const LoginForm: FC<LoginFormProps> = () => {
                 <div>
                   <label htmlFor="email" className="label">
                     <div color="blue-gray" className="label-text">
-                      Mail
+                      Email address
                     </div>
                   </label>
                   <div className="mt-2">

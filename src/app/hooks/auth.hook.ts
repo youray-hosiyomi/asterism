@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../contexts/auth.context";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getAuth, login, logout } from "@/common/api/auth.api";
+import { getAuth, login, logout } from "@/app/api/auth.api";
 import { toast } from "react-toastify";
 
 export const useAuthContext = () => useContext(AuthContext);
@@ -25,10 +25,10 @@ export const useLogin = () => {
         queryKey: [key],
         // exact: true
       });
-      toast.success("ログイン成功");
+      toast.success("Login successful");
     },
     onError: () => {
-      toast.error("ログイン失敗");
+      toast.error("Login failure");
     },
   });
 };
@@ -43,10 +43,10 @@ export const useLogout = () => {
         queryKey: [key],
         // exact: true
       });
-      toast.success("ログアウト成功");
+      toast.success("Logout successful");
     },
     onError: () => {
-      toast.error("ログアウト失敗");
+      toast.error("Logout successful");
       //
     },
   });

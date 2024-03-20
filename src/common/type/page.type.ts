@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Auth } from "../api/auth.api";
+import { Auth } from "../../app/api/auth.api";
 import { LucideIcon } from "lucide-react";
 
 export type GuestPageProps = object;

@@ -2,9 +2,9 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import { AuthPageFC } from "@/common/type/page.type";
 import AuthUserButton from "@/app/components/auth/auth-user-button.component";
 import { useMemo, useRef } from "react";
-import { repositoryPageLinkMaps } from "@/common/config/page-link.config";
+import { repositoryPageLinkMaps } from "@/app/config/page-link.config";
 import { cn } from "@/common/utils/classname.util";
-import UILayout, { UILayoutHandler } from "@/app/ui/layout.ui";
+import UILayout, { UILayoutHandler } from "@/common/ui/layout.ui";
 import AppTitle from "@/app/components/app-title.component";
 
 const linkMaps = repositoryPageLinkMaps;

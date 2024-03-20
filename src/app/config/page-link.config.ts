@@ -1,6 +1,6 @@
 import { CalendarCheckIcon, FileStackIcon, FolderSyncIcon, HomeIcon, LogInIcon } from "lucide-react";
-import { makePageLinkMaps } from "../utils/page.util";
-import { AuthPageProps, GuestPageProps, PageLinkConfig, PageLinkMap } from "../type/page.type";
+import { makePageLinkMaps } from "../../common/utils/page.util";
+import { AuthPageProps, GuestPageProps, PageLinkConfig, PageLinkMap } from "../../common/type/page.type";
 import Login_Page from "@/app/pages/login/page";
 import WS_Page from "@/app/pages/ws/page";
 import WS_Schedules_Page from "@/app/pages/ws/schedules/page";

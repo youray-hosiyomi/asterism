@@ -14,7 +14,7 @@ supabase db dump --local -f supabase\.dump\dumpfile.sql
 ## 型生成
 
 ```bash
-supabase gen types typescript --local > supabase/_type/database.type.ts
+supabase gen types typescript --local > supabase/database.type.ts
 ```
 
 ## マイグレーションファイル命名規則

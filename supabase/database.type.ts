@@ -63,6 +63,76 @@ export interface Database {
           },
         ];
       };
+      schedules: {
+        Row: {
+          completed_at: string | null;
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          id: string;
+          is_emergency: boolean;
+          is_important: boolean;
+          plan_from_at: string | null;
+          plan_to_at: string | null;
+          title: string;
+          updated_at: string | null;
+          updated_by: string | null;
+          user_id: string;
+        };
+        Insert: {
+          completed_at?: string | null;
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          id?: string;
+          is_emergency?: boolean;
+          is_important?: boolean;
+          plan_from_at?: string | null;
+          plan_to_at?: string | null;
+          title: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+          user_id: string;
+        };
+        Update: {
+          completed_at?: string | null;
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          id?: string;
+          is_emergency?: boolean;
+          is_important?: boolean;
+          plan_from_at?: string | null;
+          plan_to_at?: string | null;
+          title?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "schedules_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "schedules_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "schedules_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;

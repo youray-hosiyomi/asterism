@@ -4,7 +4,7 @@ import {
   makePFBuilderByPrimaryParams,
   makePFBuilderBySearchParams,
 } from "@/common/utils/supabase.util";
-import { QueryApiFind, QueryApiList, QueryApiProps } from "@/common/api/_query.api";
+import { QueryApiFind, QueryApiList, QueryApiProps } from "@/common/api/query.api";
 import { SupabaseClient } from "@supabase/supabase-js";
 import {
   MutationApiDelete,
@@ -12,7 +12,7 @@ import {
   MutationApiProps,
   MutationApiUpdate,
   MutationApiUpsert,
-} from "@/common/api/_mutation.api";
+} from "@/common/api/mutation.api";
 import { Database } from "@supabase/database.type";
 
 type Tables = Database["public"]["Tables"];

@@ -93,31 +93,38 @@ export abstract class MutationApi<Model, PrimaryParams> {
   }
 
   public useInsert() {
-    return this.useM<Model>((p) => this.insert(p), "登録");
+    return this.useM<Model>((p) => this.insert(p));
   }
 
   public useUpsert() {
-    return this.useM<Model>((p) => this.upsert(p), "登録");
+    return this.useM<Model>((p) => this.upsert(p));
   }
 
   public useUpdate() {
-    return this.useM<MutationApiUpdateParams<Model, PrimaryParams>>((p) => this.update(p), "更新");
+    return this.useM<MutationApiUpdateParams<Model, PrimaryParams>>((p) => this.update(p));
   }
 
   public useDelete() {
-    return this.useM<PrimaryParams>((p) => this.delete(p), "削除");
+    return this.useM<PrimaryParams>((p) => this.delete(p));
   }
 
   public useMulti() {
-    return this.useM<MutationApiMultiProps<Model, PrimaryParams>>((p) => this.multi(p), "更新");
+    return this.useM<MutationApiMultiProps<Model, PrimaryParams>>((p) => this.multi(p));
   }
 
-  protected useM<P, R = void>(fn: MutationApiFn<P, R>, fnName?: string) {
+  protected useM<P, R = void>(fn: MutationApiFn<P, R>, params?: ToastPromiseParams) {
     const queryClient = useQueryClient();
     return useMutation({
       mutationKey: [this.key],
       mutationFn: async (p: P) => {
-        return await toast.promise(fn(p), this.makeToastPromiseParams(p, fnName));
+        return await toast.promise(
+          fn(p),
+          params ?? {
+            success: "Success !",
+            error: "Error !",
+            pending: "Loading...",
+          },
+        );
       },
       onSuccess: () => {
         queryClient.invalidateQueries({
@@ -126,42 +133,5 @@ export abstract class MutationApi<Model, PrimaryParams> {
         });
       },
     });
-  }
-
-  protected makeToastPromiseParams<P>(p: P, actionName?: string): ToastPromiseParams {
-    p;
-    return {
-      success: this.makeToastMessage("success", actionName),
-      pending: this.makeToastMessage("pending", actionName),
-      error: this.makeToastMessage("error", actionName),
-    };
-  }
-
-  protected makeToastMessage(type: "success" | "pending" | "error", actionName?: string): string {
-    let message: string = "";
-    if (this.modelName && actionName) {
-      message += this.modelName + "の" + actionName;
-    } else if (actionName) {
-      message += actionName;
-    }
-    switch (type) {
-      case "success":
-        if (actionName) {
-          message += "に成功";
-        } else {
-          message += "成功";
-        }
-        break;
-      case "pending":
-        if (actionName) {
-          message += "中";
-        } else {
-          message += "処理中";
-        }
-        break;
-      default:
-        break;
-    }
-    return message;
   }
 }

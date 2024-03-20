@@ -3,7 +3,7 @@ import Router from "./Router";
 import AuthProvider from "./app/providers/auth.provider";
 import { QueryCache, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { PostgrestError } from "@supabase/supabase-js";
-import { logout } from "./common/api/auth.api";
+import { logout } from "./app/api/auth.api";
 import { ToastContainer } from "react-toastify";
 
 const App: FC = () => {
@@ -41,6 +41,7 @@ const App: FC = () => {
         position="top-right"
         autoClose={1000}
         hideProgressBar={true}
+        stacked
       />
     </>
   );

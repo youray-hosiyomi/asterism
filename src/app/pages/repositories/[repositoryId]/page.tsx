@@ -1,4 +1,4 @@
-import UIPage from "@/app/ui/page.ui";
+import UIPage from "@/common/ui/page.ui";
 import { AuthPageFC } from "@/common/type/page.type";
 
 const Repository_Page: AuthPageFC = () => {
