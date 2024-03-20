@@ -1,0 +1,8 @@
+.schedule-timeline .schedule-timeline-card .hidden-area {
+  @apply animate-fadein;
+  display: none;
+}
+
+.schedule-timeline .schedule-timeline-card:hover .hidden-area {
+  display: block;
+}

@@ -41,77 +41,92 @@ const ScheduleEditor: FC<{ initReq: Schedule; onSave: () => void; onCancel: () =
             }}
           />
         </UIFormControl>
-        <UIFormControl labelText="PlanAt">
-          <div className="flex flex-col space-y-2">
-            <input
-              id="start_at"
-              type="datetime-local"
-              className="input input-bordered"
-              value={req?.planAt?.from ? DateUtil.date2yyyymmddhhmm(req.planAt.from) : ""}
-              max={req?.planAt?.to ? DateUtil.date2yyyymmddhhmm(req.planAt.to) : ""}
-              onChange={(ev) => {
-                const from: Date | null = ev.target.value !== "" ? DateUtil.toDate(ev.target.value) : null;
-                if (req) {
-                  if (!from) {
-                    setReq({
-                      ...req,
-                      planAt: undefined,
-                    });
-                  } else if (req.planAt) {
-                    setReq({
-                      ...req,
-                      planAt: {
-                        ...req.planAt,
-                        from,
-                      },
-                    });
-                  } else {
-                    setReq({
-                      ...req,
-                      planAt: {
-                        from,
-                        to: from,
-                      },
-                    });
-                  }
+        <UIFormControl labelText="Detail">
+          <textarea
+            id="detail"
+            className="textarea textarea-bordered w-full"
+            value={req?.detail ?? ""}
+            rows={10}
+            onChange={(ev) => {
+              if (req)
+                setReq({
+                  ...req,
+                  detail: ev.target.value,
+                });
+            }}
+          />
+        </UIFormControl>
+        <UIFormControl labelText="Scheduled Start Datetime">
+          <input
+            id="start_at"
+            type="datetime-local"
+            className="input input-bordered"
+            value={req?.planAt?.from ? DateUtil.date2yyyymmddhhmm(req.planAt.from) : ""}
+            max={req?.planAt?.to ? DateUtil.date2yyyymmddhhmm(req.planAt.to) : ""}
+            onChange={(ev) => {
+              const from: Date | null = ev.target.value !== "" ? DateUtil.toDate(ev.target.value) : null;
+              if (req) {
+                if (!from) {
+                  setReq({
+                    ...req,
+                    planAt: undefined,
+                  });
+                } else if (req.planAt) {
+                  setReq({
+                    ...req,
+                    planAt: {
+                      ...req.planAt,
+                      from,
+                    },
+                  });
+                } else {
+                  setReq({
+                    ...req,
+                    planAt: {
+                      from,
+                      to: from,
+                    },
+                  });
                 }
-              }}
-            />
-            <input
-              id="end_at"
-              type="datetime-local"
-              className="input input-bordered"
-              value={req?.planAt?.to ? DateUtil.date2yyyymmddhhmm(req.planAt.to) : ""}
-              min={req?.planAt?.from ? DateUtil.date2yyyymmddhhmm(req.planAt.from) : ""}
-              onChange={(ev) => {
-                const to: Date | null = ev.target.value !== "" ? DateUtil.toDate(ev.target.value) : null;
-                if (req) {
-                  if (!to) {
-                    setReq({
-                      ...req,
-                      planAt: undefined,
-                    });
-                  } else if (req.planAt) {
-                    setReq({
-                      ...req,
-                      planAt: {
-                        ...req.planAt,
-                        to,
-                      },
-                    });
-                  } else {
-                    setReq({
-                      ...req,
-                      planAt: {
-                        from: to,
-                        to,
-                      },
-                    });
-                  }
+              }
+            }}
+          />
+        </UIFormControl>
+        <UIFormControl labelText="Scheduled End Datetime">
+          <input
+            id="end_at"
+            type="datetime-local"
+            className="input input-bordered"
+            value={req?.planAt?.to ? DateUtil.date2yyyymmddhhmm(req.planAt.to) : ""}
+            min={req?.planAt?.from ? DateUtil.date2yyyymmddhhmm(req.planAt.from) : ""}
+            onChange={(ev) => {
+              const to: Date | null = ev.target.value !== "" ? DateUtil.toDate(ev.target.value) : null;
+              if (req) {
+                if (!to) {
+                  setReq({
+                    ...req,
+                    planAt: undefined,
+                  });
+                } else if (req.planAt) {
+                  setReq({
+                    ...req,
+                    planAt: {
+                      ...req.planAt,
+                      to,
+                    },
+                  });
+                } else {
+                  setReq({
+                    ...req,
+                    planAt: {
+                      from: to,
+                      to,
+                    },
+                  });
                 }
-              }}
-            />
-          </div>
+              }
+            }}
+          />
         </UIFormControl>
       </div>
       <div className="flex items-center justify-end space-x-2">

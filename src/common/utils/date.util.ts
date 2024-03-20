@@ -16,7 +16,10 @@ export class DateUtil {
   static date2timestamp = (date: Date): string => {
     return dayjs(date).toISOString();
   };
-  static dateFormat = (date: Date, template: string): string => {
+  static dateFormat = (date: Date | null, template: string): string => {
+    if (!date) {
+      return "";
+    }
     return dayjs(date).format(template);
   };
   static timestamp2yyyymmddhhmm = (timestamp: string): string => {
