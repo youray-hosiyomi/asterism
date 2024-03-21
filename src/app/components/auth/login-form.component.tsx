@@ -1,6 +1,7 @@
 import { useLogin } from "@/app/hooks/auth.hook";
 import { FC, FormEvent, useState } from "react";
 import AppTitle from "../app-title.component";
+import { KeyIcon, MailIcon } from "lucide-react";
 
 interface LoginFormProps {}
 
@@ -28,15 +29,18 @@ const LoginForm: FC<LoginFormProps> = () => {
                     </div>
                   </label>
                   <div className="mt-2">
-                    <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      className="input input-bordered w-full"
-                      placeholder="メールアドレス"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
+                    <label className="input input-bordered w-full flex items-center gap-2">
+                      <MailIcon className="w-4 h-4 opacity-70" />
+                      <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        className="grow"
+                        placeholder="メールアドレス"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </label>
                   </div>
                 </div>
                 <div>
@@ -46,16 +50,19 @@ const LoginForm: FC<LoginFormProps> = () => {
                     </div>
                   </label>
                   <div className="mt-2">
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      className="input input-bordered w-full"
-                      placeholder="パスワード"
-                      autoComplete="current-password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
+                    <label className="input input-bordered w-full flex items-center gap-2">
+                      <KeyIcon className="w-4 h-4 opacity-70" />
+                      <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        className="grow"
+                        placeholder="パスワード"
+                        autoComplete="current-password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                    </label>
                   </div>
                 </div>
                 <div className="pt-2">
