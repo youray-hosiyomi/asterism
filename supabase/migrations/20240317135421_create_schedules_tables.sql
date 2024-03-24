@@ -8,8 +8,9 @@ CREATE TABLE
     detail TEXT, -- 詳細
     is_important BOOLEAN NOT NULL DEFAULT FALSE, -- 重要か否か
     is_emergency BOOLEAN NOT NULL DEFAULT FALSE, -- 緊急か否か
-    plan_from_at TIMESTAMP WITH TIME ZONE, -- 予定日時
-    plan_to_at TIMESTAMP WITH TIME ZONE, -- 予定日時
+    is_all_day BOOLEAN NOT NULL DEFAULT FALSE, -- 終日か否か
+    plan_from_at TIMESTAMP WITH TIME ZONE NOT NULL, -- 予定日時
+    plan_to_at TIMESTAMP WITH TIME ZONE NOT NULL, -- 予定日時
     completed_at TIMESTAMP WITH TIME ZONE, -- 達成日時
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,

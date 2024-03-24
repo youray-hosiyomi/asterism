@@ -42,10 +42,14 @@ export function makePFBuilderByPrimaryParams<
   },
   Result = Database["public"]["Tables"][TableName]["Row"][],
 >(
+  primaryKeys: PrimaryKey[],
   params: PrimaryParams,
   prevBuilder: FilterBuilder<Database["public"]["Tables"][TableName]["Row"], Result>,
 ): FilterBuilder<Database["public"]["Tables"][TableName]["Row"], Result> {
   return Object.keys(params).reduce((prev, key) => {
+    if (primaryKeys.indexOf(key as PrimaryKey) === -1) {
+      return prev;
+    }
     return prev.eq(key, params[key as keyof PrimaryParams]);
   }, prevBuilder);
 }

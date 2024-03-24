@@ -88,6 +88,7 @@ export abstract class STApi<
 
   public find: QueryApiFind<Model, PrimaryParams> = async (params) => {
     const res = await makePFBuilderByPrimaryParams<TableName, PrimaryKey, PrimaryParams>(
+      this.primaryKeys,
       params,
       this.db().select(),
     ).maybeSingle();
@@ -131,6 +132,7 @@ export abstract class STApi<
 
   public update: MutationApiUpdate<Model, PrimaryParams> = async ({ params, req }) => {
     const res = await makePFBuilderByPrimaryParams<TableName, PrimaryKey, PrimaryParams, null>(
+      this.primaryKeys,
       params,
       this.db().update(this.model2update ? this.model2update(req) : (this.model2insert(req) as any)),
     );
@@ -141,6 +143,7 @@ export abstract class STApi<
 
   public delete: MutationApiDelete<PrimaryParams> = async (params) => {
     const res = await makePFBuilderByPrimaryParams<TableName, PrimaryKey, PrimaryParams, null>(
+      this.primaryKeys,
       params,
       this.db().delete(),
     );

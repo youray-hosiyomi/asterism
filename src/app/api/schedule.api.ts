@@ -14,10 +14,11 @@ export type Schedule = {
   userId: string;
   title: string;
   detail: string;
-  planAt?: Range<Date>;
+  planAt: Range<Date>;
   completedAt?: Date;
   isImportant: boolean;
   isEmergency: boolean;
+  isNew?: boolean;
 };
 
 export type ScheduleKind =
@@ -58,13 +59,10 @@ export class ScheduleApi extends STApi<
           userId: row.user_id,
           title: row.title,
           detail: row.detail ?? "",
-          planAt:
-            row.plan_from_at && row.plan_to_at
-              ? {
-                  from: DateUtil.timestamp2date(row.plan_from_at),
-                  to: DateUtil.timestamp2date(row.plan_to_at),
-                }
-              : undefined,
+          planAt: {
+            from: DateUtil.timestamp2date(row.plan_from_at),
+            to: DateUtil.timestamp2date(row.plan_to_at),
+          },
           completedAt: row.completed_at ? DateUtil.timestamp2date(row.completed_at) : undefined,
           isImportant: row.is_important,
           isEmergency: row.is_emergency,
@@ -76,8 +74,8 @@ export class ScheduleApi extends STApi<
           user_id: model.userId,
           title: model.title,
           detail: StringUtil.empty2null(model.detail),
-          plan_from_at: model.planAt?.from ? DateUtil.date2timestamp(model.planAt.from) : null,
-          plan_to_at: model.planAt?.to ? DateUtil.date2timestamp(model.planAt.to) : null,
+          plan_from_at: DateUtil.date2timestamp(model.planAt.from),
+          plan_to_at: DateUtil.date2timestamp(model.planAt.to),
           completed_at: model.completedAt ? DateUtil.date2timestamp(model.completedAt) : null,
           is_important: model.isImportant,
           is_emergency: model.isEmergency,
@@ -168,8 +166,13 @@ export class ScheduleMutationApi extends MutationApi<Schedule, SchedulePrimaryPa
       userId,
       title: "",
       detail: "",
+      planAt: {
+        from: new Date(),
+        to: new Date(),
+      },
       isImportant: false,
       isEmergency: false,
+      isNew: true,
     };
   }
 }

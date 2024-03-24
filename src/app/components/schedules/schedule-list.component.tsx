@@ -82,7 +82,7 @@ const ScheduleList: FC<{ userId: string; date: Date; onChangeDate: OnChangeDate 
   return (
     <>
       <div className="space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between max-md:hidden">
           <div className="join">
             <button
               className="btn btn-sm btn-neutral join-item"
@@ -125,6 +125,33 @@ const ScheduleList: FC<{ userId: string; date: Date; onChangeDate: OnChangeDate 
             >
               <ArrowRightIcon className="h-4 w-4" />
             </button>
+          </div>
+          <div>
+            <button
+              className="btn btn-sm btn-success btn-outline"
+              onClick={() => {
+                add();
+              }}
+            >
+              <span>Add</span>
+            </button>
+          </div>
+        </div>
+        <div className="flex items-center justify-between md:hidden">
+          <div>
+            <input
+              id="schedule-list-date"
+              className="input input-sm input-bordered join-item"
+              type="date"
+              value={DateUtil.date2yyyymmdd(date)}
+              onChange={(ev) => {
+                if (ev.target.value !== "") {
+                  onChangeDate(DateUtil.toDate(ev.target.value));
+                } else {
+                  onChangeDate(new Date());
+                }
+              }}
+            />
           </div>
           <div>
             <button
