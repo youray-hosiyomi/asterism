@@ -1,11 +1,11 @@
 import UILayout, { UILayoutHandler } from "../../../common/ui/layout.ui";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { AuthPageFC } from "@/common/type/page.type";
-import AuthUserButton from "@/app/components/auth/auth-user-button.component";
+import AuthUserButton from "@/app/features/auth/auth-user-button.component";
 import { useMemo, useRef } from "react";
 import { wsPageLinkMaps } from "@/app/config/page-link.config";
 import { cn } from "@/common/utils/classname.util";
-import AppTitle from "@/app/components/app-title.component";
+import AppTitle from "@/app/features/app-title.component";
 
 const linkMaps = wsPageLinkMaps;
 

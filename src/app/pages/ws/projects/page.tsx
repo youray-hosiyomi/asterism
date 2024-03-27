@@ -1,11 +1,14 @@
 import UIPage from "@/common/ui/page.ui";
-import { wsPageLinkConfig } from "@/app/config/page-link.config";
 import { AuthPageFC } from "@/common/type/page.type";
+import { useState } from "react";
+import { RenderRuleObject } from "@/app/types/render-rule.type";
+import RepositoryRenderRuleField from "@/app/features/repositories/table/render-rule-field.component";
 
 const WS_Projects_Page: AuthPageFC = () => {
+  const [req, setReq] = useState<RenderRuleObject>({ type: "string", kind: "value", value: "" });
   return (
     <UIPage className="p-2 lg:p-3">
-      <div className="text-red-500 h-[200vh]">{wsPageLinkConfig["/ws/projects"].name}</div>
+      <RepositoryRenderRuleField req={req} onChange={setReq} />
     </UIPage>
   );
 };

@@ -1,4 +1,4 @@
-import { Schedule, scheduleMutationApi, scheduleQueryApi } from "@/app/api/schedule.api";
+import { Schedule, Schedule_Req, scheduleApi } from "@/app/api/schedule.api";
 import { DateUtil } from "@/common/utils/date.util";
 import { ArrowLeftIcon, ArrowRightIcon, Circle, CircleCheck } from "lucide-react";
 import { FC, useRef, useState } from "react";
@@ -7,12 +7,14 @@ import UIDialog, { UIDialogHandler } from "@/common/ui/dialog.ui";
 import dayjs from "dayjs";
 import { UILoading } from "@/common/ui/loading.ui";
 import "./schedule-list.css";
+import { NullableValue } from "@/common/obj/values.obj";
+import { StringUtil } from "@/common/utils/string.util";
 
 type OnChangeDate = (nextCurrent: Date) => void;
 type OnStartEdit = (schedule: Schedule) => void;
 
 const ScheduleDayList: FC<{ date: Date; onStartEdit: OnStartEdit }> = ({ date, onStartEdit }) => {
-  const { data: schedules, isLoading } = scheduleQueryApi.useList({
+  const { data: schedules, isLoading } = scheduleApi.query.useList({
     orderAscending: true,
     range: { from: dayjs(date).startOf("date").toDate(), to: dayjs(date).add(1, "day").startOf("date").toDate() },
   });
@@ -40,9 +42,23 @@ const ScheduleDayList: FC<{ date: Date; onStartEdit: OnStartEdit }> = ({ date, o
               }}
             >
               <div className="flex items-center space-x-1">
-                <span className="text-sm">{DateUtil.dateFormat(sche.planAt?.from ?? null, "HH:mm")}</span>
+                <span className="text-sm">
+                  {DateUtil.dateFormat(
+                    new NullableValue(StringUtil.empty2null(sche.plan_from_at))
+                      .map((v) => DateUtil.timestamp2date(v))
+                      .getVal(),
+                    "HH:mm",
+                  )}
+                </span>
                 <span className="text-sm">~</span>
-                <span className="text-sm">{DateUtil.dateFormat(sche.planAt?.to ?? null, "HH:mm")}</span>
+                <span className="text-sm">
+                  {DateUtil.dateFormat(
+                    new NullableValue(StringUtil.empty2null(sche.plan_to_at))
+                      .map((v) => DateUtil.timestamp2date(v))
+                      .getVal(),
+                    "HH:mm",
+                  )}
+                </span>
               </div>
               <div className="text-md font-semibold">{sche.title}</div>
               {/* <div className="hidden-area flex items-center justify-end w-full">
@@ -70,9 +86,9 @@ const ScheduleList: FC<{ userId: string; date: Date; onChangeDate: OnChangeDate 
   onChangeDate,
 }) => {
   const dialogHandler = useRef<UIDialogHandler>(null);
-  const [initReq, setInitReq] = useState<Schedule>(scheduleMutationApi.empty(userId));
+  const [initReq, setInitReq] = useState<Schedule_Req>(scheduleApi.empty(userId));
   const add = () => {
-    setInitReq(scheduleMutationApi.empty(userId));
+    setInitReq(scheduleApi.empty(userId));
     dialogHandler.current?.open();
   };
   const startEdit: OnStartEdit = (schedule) => {

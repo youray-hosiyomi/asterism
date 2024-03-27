@@ -63,6 +63,552 @@ export interface Database {
           },
         ];
       };
+      repositories: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          id: string;
+          image_path: string | null;
+          name: string;
+          owner_id: string | null;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          id?: string;
+          image_path?: string | null;
+          name: string;
+          owner_id?: string | null;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          id?: string;
+          image_path?: string | null;
+          name?: string;
+          owner_id?: string | null;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repositories_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repositories_owner_id_fkey";
+            columns: ["owner_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repositories_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_table_cells: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          repository_id: string;
+          repository_table_column_name: string;
+          repository_table_name: string;
+          repository_table_row_id: string;
+          updated_at: string | null;
+          updated_by: string | null;
+          value: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          repository_id: string;
+          repository_table_column_name: string;
+          repository_table_name: string;
+          repository_table_row_id: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+          value?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          repository_id?: string;
+          repository_table_column_name?: string;
+          repository_table_name?: string;
+          repository_table_row_id?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+          value?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_table_cells_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_cells_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_cells_repository_table_column_name_reposi_fkey";
+            columns: ["repository_table_column_name", "repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_table_columns";
+            referencedColumns: ["name", "repository_table_name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_cells_repository_table_name_repository_id_fkey";
+            columns: ["repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_cells_repository_table_row_id_repository__fkey";
+            columns: ["repository_table_row_id", "repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_table_rows";
+            referencedColumns: ["id", "repository_table_name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_cells_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_table_columns: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          name: string;
+          repository_id: string;
+          repository_table_name: string;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name: string;
+          repository_id: string;
+          repository_table_name: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name?: string;
+          repository_id?: string;
+          repository_table_name?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_table_columns_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_columns_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_columns_repository_table_name_repository__fkey";
+            columns: ["repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_columns_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_table_fk_cells: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          repository_id: string;
+          repository_table_fk_column_name: string;
+          repository_table_name: string;
+          repository_table_row_id: string;
+          target_repository_table_fk_column_name: string;
+          target_repository_table_name: string;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          repository_id: string;
+          repository_table_fk_column_name: string;
+          repository_table_name: string;
+          repository_table_row_id: string;
+          target_repository_table_fk_column_name: string;
+          target_repository_table_name: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          repository_id?: string;
+          repository_table_fk_column_name?: string;
+          repository_table_name?: string;
+          repository_table_row_id?: string;
+          target_repository_table_fk_column_name?: string;
+          target_repository_table_name?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_table_fk_cells_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_repository_table_fk_column_name__fkey";
+            columns: ["repository_table_fk_column_name", "repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_table_fk_columns";
+            referencedColumns: ["name", "repository_table_name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_repository_table_name_repository_fkey";
+            columns: ["repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_repository_table_row_id_reposito_fkey";
+            columns: ["repository_table_row_id", "repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_table_rows";
+            referencedColumns: ["id", "repository_table_name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_target_repository_table_fk_colum_fkey";
+            columns: ["target_repository_table_fk_column_name", "target_repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_table_fk_columns";
+            referencedColumns: ["name", "repository_table_name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_target_repository_table_name_rep_fkey";
+            columns: ["target_repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_cells_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_table_fk_columns: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          name: string;
+          repository_id: string;
+          repository_table_name: string;
+          target_repository_table_name: string;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name: string;
+          repository_id: string;
+          repository_table_name: string;
+          target_repository_table_name: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name?: string;
+          repository_id?: string;
+          repository_table_name?: string;
+          target_repository_table_name?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_table_fk_columns_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_columns_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_columns_repository_table_name_reposito_fkey";
+            columns: ["repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_columns_target_repository_table_name_r_fkey";
+            columns: ["target_repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_fk_columns_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_table_render_columns: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          name: string;
+          repository_id: string;
+          repository_table_name: string;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name: string;
+          repository_id: string;
+          repository_table_name: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name?: string;
+          repository_id?: string;
+          repository_table_name?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_table_render_colum_repository_table_name_reposi_fkey";
+            columns: ["repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_render_columns_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_render_columns_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_render_columns_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_table_rows: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          id: string;
+          repository_id: string;
+          repository_table_name: string;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          id?: string;
+          repository_id: string;
+          repository_table_name: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          id?: string;
+          repository_id?: string;
+          repository_table_name?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_table_rows_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_rows_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_table_rows_repository_table_name_repository_id_fkey";
+            columns: ["repository_table_name", "repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repository_tables";
+            referencedColumns: ["name", "repository_id"];
+          },
+          {
+            foreignKeyName: "repository_table_rows_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      repository_tables: {
+        Row: {
+          created_at: string | null;
+          created_by: string | null;
+          detail: string | null;
+          name: string;
+          render_rule: Json | null;
+          repository_id: string;
+          updated_at: string | null;
+          updated_by: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name: string;
+          render_rule?: Json | null;
+          repository_id: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          created_by?: string | null;
+          detail?: string | null;
+          name?: string;
+          render_rule?: Json | null;
+          repository_id?: string;
+          updated_at?: string | null;
+          updated_by?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "repository_tables_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_tables_repository_id_fkey";
+            columns: ["repository_id"];
+            isOneToOne: false;
+            referencedRelation: "repositories";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "repository_tables_updated_by_fkey";
+            columns: ["updated_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       schedules: {
         Row: {
           completed_at: string | null;
@@ -141,7 +687,12 @@ export interface Database {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      auth_check_repository: {
+        Args: {
+          repository_id: string;
+        };
+        Returns: boolean;
+      };
     };
     Enums: {
       [_ in never]: never;

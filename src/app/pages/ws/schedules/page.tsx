@@ -1,4 +1,4 @@
-import ScheduleList from "@/app/components/schedules/schedule-list.component";
+import ScheduleList from "@/app/features/schedules/schedule-list.component";
 import UIPage from "@/common/ui/page.ui";
 import { AuthPageFC } from "@/common/type/page.type";
 import { schedules_searchQuery } from "./search";

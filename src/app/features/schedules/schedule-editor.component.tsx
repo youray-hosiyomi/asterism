@@ -1,27 +1,27 @@
-import { Schedule, scheduleMutationApi } from "@/app/api/schedule.api";
+import { Schedule_Req, scheduleApi } from "@/app/api/schedule.api";
 import UIFormControl from "@/common/ui/form-control.ui";
 import { DateUtil } from "@/common/utils/date.util";
 import { FC, useEffect, useMemo, useState } from "react";
 
-const ScheduleEditor: FC<{ initReq: Schedule; onSave: () => void; onCancel: () => void }> = ({
+const ScheduleEditor: FC<{ initReq: Schedule_Req; onSave: () => void; onCancel: () => void }> = ({
   initReq,
   onSave,
   onCancel,
 }) => {
   const [req, setReq] = useState(initReq);
   const isNew = useMemo(() => {
-    return initReq.isNew ?? false;
+    return !initReq.id;
   }, [initReq]);
-  const upsertSchedule = scheduleMutationApi.useUpsert();
-  const deleteSchedule = scheduleMutationApi.useDelete();
+  const upsertSchedule = scheduleApi.mutation.useUpsert();
+  const deleteSchedule = scheduleApi.mutation.useDelete();
   function save() {
     upsertSchedule.mutateAsync(req).then(() => {
       onSave();
     });
   }
   function remove() {
-    if (!isNew) {
-      deleteSchedule.mutateAsync(req).then(() => {
+    if (req.id) {
+      deleteSchedule.mutateAsync({ id: req.id }).then(() => {
         onSave();
       });
     }
@@ -72,36 +72,31 @@ const ScheduleEditor: FC<{ initReq: Schedule; onSave: () => void; onCancel: () =
             id="start_at"
             type="datetime-local"
             className="input input-bordered"
-            value={DateUtil.date2yyyymmddhhmm(req.planAt.from)}
-            max={DateUtil.date2yyyymmddhhmm(req.planAt.to)}
+            value={DateUtil.date2yyyymmddhhmm(DateUtil.timestamp2date(req.plan_from_at))}
+            max={DateUtil.date2yyyymmddhhmm(DateUtil.timestamp2date(req.plan_to_at))}
             onChange={(ev) => {
               const from: Date | null = ev.target.value !== "" ? DateUtil.toDate(ev.target.value) : null;
-              const to = req.planAt.to;
+              const to = DateUtil.timestamp2date(req.plan_to_at);
+              const plan_to_at = DateUtil.date2timestamp(to);
               if (req) {
                 if (!from) {
                   setReq({
                     ...req,
-                    planAt: {
-                      from: to,
-                      to,
-                    },
-                  });
-                } else if (from.getTime() > to.getTime()) {
-                  setReq({
-                    ...req,
-                    planAt: {
-                      from,
-                      to: from,
-                    },
+                    plan_from_at: plan_to_at,
                   });
                 } else {
-                  setReq({
-                    ...req,
-                    planAt: {
-                      from,
-                      to,
-                    },
-                  });
+                  const plan_from_at = DateUtil.date2timestamp(from);
+                  if (from.getTime() > to.getTime()) {
+                    setReq({
+                      ...req,
+                      plan_to_at: plan_from_at,
+                    });
+                  } else {
+                    setReq({
+                      ...req,
+                      plan_from_at,
+                    });
+                  }
                 }
               }
             }}
@@ -112,36 +107,31 @@ const ScheduleEditor: FC<{ initReq: Schedule; onSave: () => void; onCancel: () =
             id="end_at"
             type="datetime-local"
             className="input input-bordered"
-            value={DateUtil.date2yyyymmddhhmm(req.planAt.to)}
-            min={DateUtil.date2yyyymmddhhmm(req.planAt.from)}
+            value={DateUtil.date2yyyymmddhhmm(DateUtil.timestamp2date(req.plan_to_at))}
+            min={DateUtil.date2yyyymmddhhmm(DateUtil.timestamp2date(req.plan_from_at))}
             onChange={(ev) => {
-              const from = req.planAt.from;
+              const from = DateUtil.timestamp2date(req.plan_from_at);
               const to: Date | null = ev.target.value !== "" ? DateUtil.toDate(ev.target.value) : null;
+              const plan_from_at = DateUtil.date2timestamp(from);
               if (req) {
                 if (!to) {
                   setReq({
                     ...req,
-                    planAt: {
-                      from,
-                      to: from,
-                    },
-                  });
-                } else if (from.getTime() > to.getTime()) {
-                  setReq({
-                    ...req,
-                    planAt: {
-                      from: to,
-                      to,
-                    },
+                    plan_to_at: plan_from_at,
                   });
                 } else {
-                  setReq({
-                    ...req,
-                    planAt: {
-                      from,
-                      to,
-                    },
-                  });
+                  const plan_to_at = DateUtil.date2timestamp(to);
+                  if (from.getTime() > to.getTime()) {
+                    setReq({
+                      ...req,
+                      plan_from_at: plan_to_at,
+                    });
+                  } else {
+                    setReq({
+                      ...req,
+                      plan_to_at,
+                    });
+                  }
                 }
               }
             }}

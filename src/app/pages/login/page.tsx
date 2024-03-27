@@ -1,4 +1,4 @@
-import LoginForm from "@/app/components/auth/login-form.component";
+import LoginForm from "@/app/features/auth/login-form.component";
 import { GuestPageFC } from "@/common/type/page.type";
 
 const Login_Page: GuestPageFC = () => {
