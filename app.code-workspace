@@ -1,0 +1,59 @@
+{
+  "folders": [
+    {
+      "name": "asterism",
+      "path": ".",
+    },
+  ],
+  "settings": {
+    "prettier.ignorePath": ".prettierignore",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+    },
+    "[markdown]": {
+      "editor.unicodeHighlight.ambiguousCharacters": false,
+      "editor.unicodeHighlight.invisibleCharacters": false,
+      "diffEditor.ignoreTrimWhitespace": false,
+      "editor.wordWrap": "on",
+      "editor.quickSuggestions": {
+        "comments": "off",
+        "strings": "off",
+        "other": "off",
+      },
+      "editor.defaultFormatter": "vscode.markdown-language-features",
+    },
+    "[sql]": {
+      "editor.tabSize": 2,
+      "editor.indentSize": "tabSize",
+      "editor.defaultFormatter": "inferrinizzard.prettier-sql-vscode",
+    },
+    "Prettier-SQL.expressionWidth": 200,
+    "Prettier-SQL.keywordCase": "upper",
+    "Prettier-SQL.SQLFlavourOverride": "postgresql",
+    // "Prettier-SQL.commaPosition": "after", // Where to place commas for SELECT and GROUP BY clauses
+    // "Prettier-SQL.denseOperators": false, // Whether to strip whitespace around operators such as + or >=
+    // "Prettier-SQL.ignoreTabSettings": false, // Whether to ignore VSCode user/workspace settings for tabSize and insertSpaces
+    // "Prettier-SQL.expressionWidth": 50, // Number of characters allowed in each line before breaking
+    // "Prettier-SQL.indentStyle": "standard", // Switched between standard keyword positioning vs maintaining a central space column
+    // "Prettier-SQL.insertSpacesOverride": true, // Overrides insertSpaces if Prettier-SQL.ignoreTabSettings is enabled
+    // "Prettier-SQL.keywordCase": "preserve", // Whether to print keywords in ALL CAPS or lowercase
+    // "Prettier-SQL.linesBetweenQueries": 1, // How many newlines to place between each query / statement
+    // "Prettier-SQL.logicalOperatorNewline": "before", // Whether to break before or after AND and OR
+    // "Prettier-SQL.newlineBeforeSemicolon": false, // Whether to place semicolon on its own line or on previous line
+    // "Prettier-SQL.SQLFlavourOverride": "sql", // Uses custom SQL Flavour to format sql files. Use this if you are using the Microsoft PostgreSQL or MSSQL Extensions since they do not provide a new language ID for VSCode.
+    // "Prettier-SQL.tabSizeOverride": 2, // Overrides tabSize if Prettier-SQL.ignoreTabSettings is enabled
+    // "Prettier-SQL.tabulateAlias": false // Whether to right-align aliases to the longest line in the SELECT clause
+    "files.readonlyFromPermissions": true,
+    "files.readonlyInclude": {
+      "node_modules/**/*": true,
+      ".next/**/*": true,
+      "*.lock*": true,
+    },
+    "files.associations": {
+      "*.css": "tailwindcss",
+    },
+  },
+}
